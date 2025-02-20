@@ -28,7 +28,7 @@
                     </article>
                     <article class="card">
                         <h2>Druhý článek</h2>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit <a href="#">elit</a> Nemo molestias aut provident reiciendis, quibusdam eum tempora impedit, ducimus inventore vero a veritatis animi aliquid error rerum distinctio molestiae tempore accusamus?</p>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit <a href="#">TEXT ODKAZ</a> Nemo molestias aut provident reiciendis, quibusdam eum tempora impedit, ducimus inventore vero a veritatis animi aliquid error rerum distinctio molestiae tempore accusamus?</p>
                     </article>
                     <article class="card">
                         <h2>Třetí článek</h2>
@@ -51,7 +51,34 @@
         </main>
         <footer>
                 <p>&copy;2025 Lucie Matějková</p>
+                <input type="color" id="colorPicker" value="#ff1493">
         </footer>
     </div>
+    <h1>Nadpis - barva se bude měnit</h1>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt, cumque modi. Nesciunt quidem facere ullam quod corrupti blanditiis ipsam expedita eos laboriosam recusandae ea nulla, ex nemo dolor suscipit. Cupiditate?</p>
+
+    <script>
+        const colorPicker = document.getElementById('colorPicker');
+        const body = document.body;
+        const textElements = document.querySelectorAll('h1, p');
+
+
+        colorPicker.addEventListener('input', () => {
+            const color = colorPicker.value;
+            body.style.background = color;
+           
+            // Převod hex na RGB
+            const r = parseInt(color.substr(1, 2), 16);
+            const g = parseInt(color.substr(3, 2), 16);
+            const b = parseInt(color.substr(5, 2), 16);
+           
+            // Výpočet světlosti (luminance) podle vnímání oka
+            const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+           
+            // Pokud je světlost vysoká, nastavíme černý text, jinak bílý
+            const textColor = luminance > 0.5 ? 'black' : 'white';
+            textElements.forEach(el => el.style.color = textColor);
+        });
+    </script>
 </body>
 </html>
