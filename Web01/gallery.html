@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucie Matějková</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <header>
+                <h1>Galerie</h1>
+        </header>
+        <nav>
+                <!-- Navigace pomocí odrážek -->
+                <ul>
+                    <li><a href="index.html">Domů</a></li>
+                    <li><a href="gallery.html">Galerie</a></li>
+                    <li><a href="#">O nás</a></li>
+                    <li><a href="#">Kontakt</a></li>
+                </ul>
+        </nav>
+        <main>
+            <div class="content-wrapper">
+                <section class="grid-container">
+                    <figure>
+                        <img src="assets/images/dummy_600x400_000000_89a9d6.png" alt="Obrázek 1">
+                        <figcaption>Popis obrázku 1</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="assets/images/dummy_600x400_000000_8c82d6.png" alt="Obrázek 2">
+                        <figcaption>Popis obrázku 2</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="assets/images/dummy_600x400_000000_9df9b3.png" alt="Obrázek 3">
+                        <figcaption>Popis obrázku 3</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="assets/images/dummy_600x400_000000_a1abed.png" alt="Obrázek 4">
+                        <figcaption>Popis obrázku 4</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="assets/images/dummy_600x400_000000_a9f733.png" alt="Obrázek 5">
+                        <figcaption>Popis obrázku 5</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="assets/images/dummy_600x400_000000_f5ffaf.png" alt="Obrázek 6">
+                        <figcaption>Popis obrázku 6</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="assets/images/dummy_600x400_000000_f7b9f2.png" alt="Obrázek 7">
+                        <figcaption>Popis obrázku 7</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="assets/images/dummy_600x400_000000_fcc194.png" alt="Obrázek 8">
+                        <figcaption>Popis obrázku 8</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="assets/images/dummy_600x400_ffffff_6671d1.png" alt="Obrázek 9">
+                        <figcaption>Popis obrázku 9</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="assets/images/dummy_600x400_ffffff_d10873.png" alt="Obrázek 10">
+                        <figcaption>Popis obrázku 10</figcaption>
+                    </figure>
+                </section>
+            </div>
+        </main>
+        <footer>
+                <p>&copy;2025 Lucie Matějková</p>
+                <input type="color" id="colorPicker" value="#ff1493">
+        </footer>
+    </div>
+    
+    <script>
+        const colorPicker = document.getElementById('colorPicker');
+        const body = document.body;
+        const textElements = document.querySelectorAll('h1, p');
+
+
+        colorPicker.addEventListener('input', () => {
+            const color = colorPicker.value;
+            body.style.background = color;
+           
+            // Převod hex na RGB
+            const r = parseInt(color.substr(1, 2), 16);
+            const g = parseInt(color.substr(3, 2), 16);
+            const b = parseInt(color.substr(5, 2), 16);
+           
+            // Výpočet světlosti (luminance) podle vnímání oka
+            const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+           
+            // Pokud je světlost vysoká, nastavíme černý text, jinak bílý
+            const textColor = luminance > 0.5 ? 'black' : 'white';
+            textElements.forEach(el => el.style.color = textColor);
+        });
+    </script>
+</body>
+</html>
