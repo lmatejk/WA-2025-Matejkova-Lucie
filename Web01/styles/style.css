@@ -69,25 +69,29 @@ nav a:hover {
     font-style: italic;
     padding: 2px;
     text-align: center;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
   }
 
   figure {
    /* display: grid;*/
-    border: 1px #cccccc solid;
+    border: 1px #000000 solid;
+    background-color: deeppink;
+    border-radius: 20px;
     padding: 4px;
     margin: auto;
     display: grid;
     margin-top: 1em;
     margin-bottom: 1em;
-    margin-left: 40px;
-    margin-right: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
   }
 
   img {
     width: 100%;
     height: 100%;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-color: black;
+    border: 1px black solid;
   }
