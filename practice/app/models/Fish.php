@@ -46,7 +46,7 @@ class Fish {
                     species = :species,
                     habitat = :habitat,
                     size_cm = :size_cm,
-                    diet = :diet,
+                    diet = :diet
                 WHERE id = :id";
     
         $stmt = $this->db->prepare($sql);
@@ -56,7 +56,7 @@ class Fish {
             ':species' => $species,
             ':habitat' => $habitat,
             ':size_cm' => $size_cm,
-            ':diet' => $diet,
+            ':diet' => $diet
         ]);
     }
 
