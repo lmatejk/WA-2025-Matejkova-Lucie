@@ -1,0 +1,107 @@
+header {
+    grid-area: header;
+    padding: 5px;
+    background-color: lightgray;
+    height: 20vh;
+}
+
+footer {
+    grid-area: footer;
+    padding: 5px;
+    background-color: lightgray;
+    height: 20vh;
+}
+
+/* CSS pro grid */
+/* .container {
+    display: grid;
+    grid-template-areas:
+        "header header header"
+        "sidebar1 main sidebar2"
+        "footer footer footer";
+    grid-template-columns: 1fr 2fr 1fr;
+    height: 60vh;
+    grid-template-rows: auto 1fr auto;
+    gap: 10px;
+} */
+    /* zmenit layout pokud je sidebar2 empty */
+/* .container:not(:has(.sidebar2:not(:empty))) {
+    grid-template-areas:
+        "header header"
+        "sidebar1 main"
+        "footer footer";
+    grid-template-columns: 1fr 3fr;
+    height: 60vh;
+    gap: 10px;
+} */
+
+/*   @media (max-width: 800px) {
+    .container {
+        grid-template-areas:
+            "header"
+            "sidebar1"
+            "main"
+            "sidebar2"
+            "footer";
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 1fr auto auto;
+    } */
+    /* pokud je sidebar2 empty */
+/*     .container:not(:has(.sidebar2:not(:empty))){
+        grid-template-areas:
+            "header"
+            "sidebar1"
+            "main"
+            "sidebar2"
+            "footer";
+        grid-template-columns: 1fr;
+    }
+  } */
+
+/* .sidebar1 {
+    grid-area: sidebar1;
+    background-color: lightgray;
+}
+
+.main {
+    grid-area: main;
+    background-color: lightgray;
+    
+}
+
+.sidebar2 {
+    grid-area: sidebar2;
+    background-color: lightgray;
+    min-width: 1fr;
+} */
+
+/*css pro flexbox*/
+
+.container {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    gap: 10px;
+    padding: 10px;
+    height: 60vh;
+}
+
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+    }
+}
+
+.sidebar1, .sidebar2 {
+    flex: 1;
+    background-color: lightgray;
+}
+
+.main {
+    flex: 2;
+    background-color: lightgray;
+}
+ 
+.sidebar2:empty {
+    display: none;
+  }
