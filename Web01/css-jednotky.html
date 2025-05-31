@@ -1,22 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lucie Matějková</title>
     <link rel="stylesheet" href="styles/style.css">
-    <style>
-        h1 { font-size: clamp(1.5rem, 3vw, 4rem); }
-    </style>
 </head>
 <body>
     <div class="page-wrapper">
         <header>
-            <!--lokalni ma nejvetsi prednost, pak jsou to styly v hlavicce a pak pripojene externi css-->
-            <h1> <!--style="font-size: 50px;"--> CSS jednotky</h1>
+            <h1>CSS jednotky</h1>
         </header>
         <nav>
-            <!-- Navigace pomocí odrážek -->
             <ul>
                 <li><a href="index.html">Domů</a></li>
                 <li><a href="gallery.html">Galerie</a></li>
@@ -24,16 +19,60 @@
                 <li><a href="css-jednotky.html">CSS jednotky</a></li>
                 <li><a href="#">O nás</a></li>
                 <li><a href="#">Kontakt</a></li>
-                
             </ul>
         </nav>
         <main>
             <div class="content-wrapper">
+                <label>
+                    Velikost v pixelech: <span id="pixel-value">100</span>px
+                    <input type="range" id="range" min="50" max="500" value="100">
+                </label>
+
+                <div id="px-box" class="box">px</div>
+                <div id="cm-box" class="box">cm</div>
+                <div id="em-box" class="box">em</div>
+                <div id="rem-box" class="box">rem</div>
+                <div id="percent-box" class="box">%</div>
+                <div id="vw-box" class="box">vw</div>
+                <div id="vh-box" class="box">vh</div>
             </div>
         </main>
         <footer>
-                <p>&copy;2025 Lucie Matějková</p>
+            <p>&copy;2025 Lucie Matějková</p>
         </footer>
     </div>
+
+<script>
+    const range = document.getElementById("range");
+    const pixelValue = document.getElementById("pixel-value");
+
+    const units = [
+        { id: "px-box", label: "px", convert: px => `${px}px`, info: px => `${px}px` },
+        { id: "cm-box", label: "cm", convert: px => `${(px / 37.8).toFixed(2)}cm`, info: () => `1cm ≈ 37.8px` },
+        { id: "em-box", label: "em", convert: px => `${(px / 16).toFixed(2)}em`, info: () => `1em = 16px` },
+        { id: "rem-box", label: "rem", convert: px => `${(px / 16).toFixed(2)}rem`, info: () => `1rem = 16px` },
+        { id: "percent-box", label: "%", convert: px => `${((px / 500) * 100).toFixed(2)}%`, info: () => `100% = 500px` },
+        { id: "vw-box", label: "vw", convert: px => `${((px / window.innerWidth) * 100).toFixed(2)}vw`, info: () => `100vw = šířka okna` },
+        { id: "vh-box", label: "vh", convert: px => `${((px / window.innerHeight) * 100).toFixed(2)}vh`, info: () => `100vh = výška okna` },
+    ];
+
+    function updateBoxes(px) {
+        pixelValue.textContent = px;
+
+        units.forEach(unit => {
+            const box = document.getElementById(unit.id);
+            const size = unit.convert(px);
+            box.style.width = size;
+            box.style.height = size;
+            box.textContent = `${unit.label}: ${size}\n(${unit.info(px)})`;
+        });
+    }
+
+    range.addEventListener("input", () => {
+        updateBoxes(range.value);
+    });
+
+    updateBoxes(range.value);
+</script>
 </body>
 </html>
