@@ -61,14 +61,14 @@ if (!$postId) {
                             <span class="nav-link text-white"><i class="bi bi bi-person-circle "></i> <strong><?= htmlspecialchars($_SESSION['username']) ?></strong></span>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../controllers/logout.php">Odhlásit se</a>
+                            <a class="nav-link" href="../controllers/logout.php">Odhlásit se</a>
                         </li>
                     <?php else: ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../views/auth/login.php">Přihlášení</a>
+                            <a class="nav-link" href="../views/auth/login.php">Přihlášení</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../views/auth/register.php">Registrace</a>
+                            <a class="nav-link" href="../views/auth/register.php">Registrace</a>
                         </li>
                     <?php endif; ?>
                 </ul>
@@ -89,7 +89,7 @@ if (!$postId) {
 
                     <?php if ($_SESSION['user_id'] ?? null == $post['user_id'] || ($_SESSION['role'] ?? '') === 'admin'): ?>
                         <div class="d-flex gap-2">
-                            <a href="post_edit_delete.php?id=<?= urlencode($post['id']) ?>" class="btn btn-general btn-sm">
+                            <a href="../views/blog/post_edit_delete.php?id=<?= urlencode($post['id']) ?>" class="btn btn-general btn-sm">
                                 <i class="bi bi-pencil-fill"></i> Upravit
                             </a>
                             <a href="../controllers/post_delete.php?id=<?= urlencode($post['id']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Opravdu chcete smazat tento příspěvek?')">
@@ -105,7 +105,7 @@ if (!$postId) {
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <div class="mb-3">
                         
-                <form action="../controllers/show_post_comments.php" method="post">
+                <form action="../controllers/comment_create.php" method="post">
                     <input type="hidden" name="post_id" value="<?= htmlspecialchars($post['id']) ?>">
                     <input type="hidden" name="category_id" value="<?= htmlspecialchars($post['category_id'] ?? '') ?>">
                     <div class="mb-2">

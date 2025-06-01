@@ -1,6 +1,42 @@
 <?php
+require_once '../../models/Database.php';
+require_once '../../models/Post.php';
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
+}
+
+$postId = $_GET['id'] ?? null;
+if (!$postId) {
+    echo "Nebyl vybrán žádný příspěvek.";
+    exit;
+}
+
+//presmerovani pokud nejsme prihlaseni
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../../controllers/posts_list.php");
+    exit();
+}
+
+$db = (new Database())->getConnection();
+$postModel = new Post($db);
+$posts = $postModel->getAllPosts();
+
+$editMode = false;
+$postToEdit = null;
+
+if (isset($_GET['edit'])) {
+    $editId = (int)$_GET['edit'];
+    $postToEdit = $postModel->getPostById($editId);
+    if ($postToEdit) {
+        $editMode = true;
+    }
+}
+// Získání příspěvku z databáze
+$post = $postModel->getPostById($postId);
+if (!$post) {
+    echo "Příspěvek nenalezen.";
+    exit;
 }
 
 ?>
@@ -74,13 +110,11 @@ if (session_status() === PHP_SESSION_NONE) {
 <div class="container mt-5">
         <h2>Upravit příspěvek</h2>
 
-        <?php if (isset($error)): ?>
-            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
-        <?php endif; ?>
-
         <?php if ($post): ?>
             <form method="POST" action="../../controllers/post_update.php">
                 <div class="mb-3">
+                    <input type="hidden" name="id" value="<?= $post['id'] ?>">
+
                     <label for="title" class="form-label">Nadpis</label>
                     <input type="text" class="form-control" id="title" name="title" value="<?= htmlspecialchars($post['title']) ?>" required>
                 </div>
