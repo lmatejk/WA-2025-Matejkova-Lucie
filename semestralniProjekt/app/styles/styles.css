@@ -1,0 +1,38 @@
+/*custom colors*/
+
+.navbar-general {
+    background-image: linear-gradient(to right, #005a9e, #037e8c, #1aaa55, #6ed678); 
+}
+.card-header-general {
+    background-color: #005a9e;
+}
+.btn-general {
+    background-color: #6ed678;
+}
+
+/*gradient border*/
+.card-general {
+    background: linear-gradient(white, white) padding-box,
+              linear-gradient(to bottom, #005a9e,#037e8c, #1aaa55,#52c41a) border-box;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    z-index: 2; 
+}
+
+
+.navbar-powerBI {
+    background-image: linear-gradient(to right,#e5a000,#fdb813, #f2c811);
+}
+.navbar-powerAutomate {
+    background-image: linear-gradient(to right,#104AC6,#3587F2,#6DBAFC);
+}
+.navbar-powerApps {
+    background-image: linear-gradient(to right,#942D8A, #E083C4,#E698C9);
+}
+.navbar-powerPages {
+    background-image: linear-gradient(to right, #433FB3,#7164D3,#A594E8);
+}
+.navbar-copilotStudio {
+    background-image: linear-gradient(to right,#00408E,#0D95CB,#0D95CB);
+}
+
