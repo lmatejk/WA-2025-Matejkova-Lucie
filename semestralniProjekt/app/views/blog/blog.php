@@ -104,14 +104,14 @@ if (session_status() === PHP_SESSION_NONE) {
                                         Zobrazit více
                                     </a>
                                     <small class="text-muted">Autor: <?= htmlspecialchars($post['username']) ?></small>
-                        <?php if(isset($_SESSION['user_id']) && ($_SESSION['user_id'] == $post['user_id'] || $_SESSION['role']==='admin')): ?>
-                            <div class="d-flex gap-2">
-                                <a href="../controllers/post_delete.php?id=<?= urlencode($post['id']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Opravdu chcete smazat tento příspěvek?')">
-                                    <i class="bi bi-trash3-fill"></i>
-                                </a>
-                            </div>
-                        <?php endif; ?>
-                </div>
+                                <?php if(isset($_SESSION['user_id']) && ($_SESSION['user_id'] == $post['user_id'] || $_SESSION['role']==='admin')): ?>
+                                <div class="d-flex gap-2">
+                                    <a href="../controllers/post_delete.php?id=<?= urlencode($post['id']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Opravdu chcete smazat tento příspěvek?')">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>

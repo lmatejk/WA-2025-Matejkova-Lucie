@@ -28,7 +28,7 @@ if (!$postId) {
 <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark navbar-general mb-4 sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../other/home.php"><img src="../assets/images/logo_wa.png" alt="logo" style="width: 50px;"></a>
+            <a class="navbar-brand" href="../views/other/home.php"><img src="../assets/images/logo_wa.png" alt="logo" style="width: 50px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Přepnout navigaci">
                 <span class="navbar-toggler-icon"></span>
@@ -51,7 +51,7 @@ if (!$postId) {
                         <a class="nav-link" href="../views/mainContent/copilotStudio.php">Copilot Studio</a>
                     </li>    
                     <li class="nav-item">
-                        <a class="nav-link" href="../views/controllers/posts_list.php">Blog</a>
+                        <a class="nav-link" href="../controllers/posts_list.php">Blog</a>
                     </li>    
    
                 </ul>
@@ -87,7 +87,7 @@ if (!$postId) {
                     
                     <span>Autor: <?= htmlspecialchars($post['username']) ?></span>
 
-                    <?php if ($_SESSION['user_id'] ?? null == $post['user_id'] || ($_SESSION['role'] ?? '') === 'admin'): ?>
+                    <?php if (isset($_SESSION['user_id']) && ($_SESSION['user_id'] === $post['user_id'] || ($_SESSION['role'] ?? '') === 'admin')): ?>
                         <div class="d-flex gap-2">
                             <a href="../views/blog/post_edit_delete.php?id=<?= urlencode($post['id']) ?>" class="btn btn-general btn-sm">
                                 <i class="bi bi-pencil-fill"></i> Upravit
@@ -102,7 +102,7 @@ if (!$postId) {
 
             <h4>Komentáře</h4>
                         
-                <?php if (isset($_SESSION['user_id'])): ?>
+            <?php if (isset($_SESSION['user_id'])): ?>
                     <div class="mb-3">
                         
                 <form action="../controllers/comment_create.php" method="post">
@@ -121,37 +121,36 @@ if (!$postId) {
 
 
 
-            <?php if (!empty($comments)): ?>
-                <?php foreach ($comments as $comment): ?>
-                    <div class="card mb-2">
-                        <div class="card-body">
-                            <p class="card-text"><?= nl2br(htmlspecialchars($comment['content'])) ?></p>
-                            
-                            <small class="text-muted">Autor: <?= htmlspecialchars($comment['username']) ?></small><br>
-                            
-                <?php if ($_SESSION['user_id'] ?? null == $comment['user_id'] || ($_SESSION['role'] ?? '') === 'admin'): ?>
-                    <form action="../controllers/comment_delete.php" method="post" onsubmit="return confirm('Opravdu chcete smazat tento komentář?')" style="margin: 0;">
-                        <input type="hidden" name="comment_id" value="<?= htmlspecialchars($comment['id']) ?>">
-                        <input type="hidden" name="post_id" value="<?= htmlspecialchars($post['id']) ?>">
-                        <input type="hidden" name="category_id" value="<?= htmlspecialchars($post['category_id']) ?>">
-                        
-                        <input type="hidden" name="action" value="delete">
+                <?php if (!empty($comments)): ?>
+                    <?php foreach ($comments as $comment): ?>
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <p class="card-text"><?= nl2br(htmlspecialchars($comment['content'])) ?></p>
+                                
+                                <small class="text-muted">Autor: <?= htmlspecialchars($comment['username']) ?></small><br>
+                                
+                                <?php if (isset($_SESSION['user_id']) && ($_SESSION['user_id'] === $comment['user_id'] || ($_SESSION['role'] ?? '') === 'admin')): ?>
+                                    <form action="../controllers/comment_delete.php" method="post" onsubmit="return confirm('Opravdu chcete smazat tento komentář?')" style="margin: 0;">
+                                        <input type="hidden" name="comment_id" value="<?= htmlspecialchars($comment['id']) ?>">
+                                        <input type="hidden" name="post_id" value="<?= htmlspecialchars($post['id']) ?>">
+                                        <input type="hidden" name="category_id" value="<?= htmlspecialchars($post['category_id']) ?>">
+                                        
+                                        <input type="hidden" name="action" value="delete">
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="bi bi-trash3-fill"></i> Smazat
+                                        </button>
+                                    </form>
+                                <?php endif; ?>
 
-                        <button type="submit" class="btn btn-danger btn-sm">
-                            <i class="bi bi-trash3-fill"></i> Smazat
-                        </button>
-                    </form>
-                <?php endif; ?>
-
+                            </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="alert alert-info"><i class="bi bi-info-circle"></i> Zatím žádné komentáře.</div>
+                <?php endif; ?>
             <?php else: ?>
-                <div class="alert alert-info"><i class="bi bi-info-circle"></i> Zatím žádné komentáře.</div>
+                <div class="alert alert-danger">Příspěvek nenalezen.</div>
             <?php endif; ?>
-        <?php else: ?>
-            <div class="alert alert-danger">Příspěvek nenalezen.</div>
-        <?php endif; ?>
     </div>
 
     <footer class="bg-dark text-white py-5 mt-5">

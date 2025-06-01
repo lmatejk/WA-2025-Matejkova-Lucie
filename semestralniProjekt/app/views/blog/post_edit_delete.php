@@ -59,7 +59,7 @@ if (!$post) {
     
     <nav class="navbar navbar-expand-lg navbar-dark navbar-general mb-4 sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../views/other/home.php"><img src="../../assets/images/logo_wa.png" alt="logo" style="width: 50px;"></a>
+            <a class="navbar-brand" href="../other/home.php"><img src="../../assets/images/logo_wa.png" alt="logo" style="width: 50px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Přepnout navigaci">
                 <span class="navbar-toggler-icon"></span>
@@ -96,10 +96,10 @@ if (!$post) {
                         </li>
                     <?php else: ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="../auth/login.php">Přihlášení</a>
+                            <a class="nav-link" href="../../auth/login.php">Přihlášení</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../auth/register.php">Registrace</a>
+                            <a class="nav-link" href="../../auth/register.php">Registrace</a>
                         </li>
                     <?php endif; ?>
                 </ul>
