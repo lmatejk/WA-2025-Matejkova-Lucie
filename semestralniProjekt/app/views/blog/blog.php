@@ -11,20 +11,18 @@ if (session_status() === PHP_SESSION_NONE) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
-
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism-coy.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" />
     
     <!-- custom style-->
-    <link rel="stylesheet" href="../../styles/styles.css">   
-
+    <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-general mb-4 sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../other/home.php"><img src="../../assets/images/logo_wa.png" alt="logo" style="width: 50px;"></a>
+            <a class="navbar-brand" href="../views/other/home.php"><img src="../assets/images/logo_wa.png" alt="logo" style="width: 50px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Přepnout navigaci">
                 <span class="navbar-toggler-icon"></span>
@@ -32,86 +30,95 @@ if (session_status() === PHP_SESSION_NONE) {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="../mainContent/powerBI.php">Power BI</a>
+                        <a class="nav-link" href="../views/mainContent/powerBI.php">Power BI</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../mainContent/powerApps.php">Power Apps</a>
+                        <a class="nav-link" href="../views/mainContent/powerApps.php">Power Apps</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../mainContent/powerAutomate.php">Power Automate</a>
+                        <a class="nav-link" href="../views/mainContent/powerAutomate.php">Power Automate</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../mainContent/powerPages.php">Power Pages</a>
+                        <a class="nav-link" href="../views/mainContent/powerPages.php">Power Pages</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../mainContent/copilotStudio.php">Copilot Studio</a>
+                        <a class="nav-link" href="../views/mainContent/copilotStudio.php">Copilot Studio</a>
                     </li>    
                     <li class="nav-item">
-                        <a class="nav-link" href="../../controllers/posts_list.php">Blog</a>
-                    </li>    
-   
+                        <a class="nav-link" href="#">Blog</a>
+                    </li>     
                 </ul>
-                <ul class="navbar-nav ms-auto">
-                     
-                </ul>
+
                 <ul class="navbar-nav ms-auto">
                     <?php if (isset($_SESSION['username'])): ?>
                         <li class="nav-item">
                             <span class="nav-link text-white"><i class="bi bi bi-person-circle "></i> <strong><?= htmlspecialchars($_SESSION['username']) ?></strong></span>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../controllers/logout.php">Odhlásit se</a>
+                            <a class="nav-link" href="../controllers/logout.php">Odhlásit se</a>
                         </li>
                     <?php else: ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../views/auth/login.php">Přihlášení</a>
+                            <a class="nav-link" href="../views/auth/login.php">Přihlášení</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../views/auth/register.php">Registrace</a>
+                            <a class="nav-link" href="../views/auth/register.php">Registrace</a>
                         </li>
                     <?php endif; ?>
                 </ul>
             </div>
         </div>
     </nav>
+    
+    <div class="container">
+        <div class="container">
+            <h1><img style="width: 150px;" src="../assets/images/powerPlatformLogo.png" alt="Power Platform Logo">Blog</h1>
+        </div>   
+        <p>Podělete se o své nápady a sdílejte zkušenosti. Můžete klást otázky a ptát se ostatních, v komentářích Vám určitě někdo pomůže. 
+            <br><b>Nejlepší cesta k pokroku je pomáhat si navzájem a učit se od sebe.</b></p>
+        <?php if (isset($_SESSION['username'])): ?>
+            <button class="btn btn-general">
+                <a class="nav-link" href="../views/blog/post_create.php">Přidat příspěvek</a>
+            </button> 
+        <?php endif; ?>
+        <br><br>
 
-    <div class="container mb-5">
-        <h2 class="p-2">Vytvoření příspěvku</h2>
-        <div class="card p-4 card-general">
-            
-            <form action="../../controllers/post_create.php" method="post" enctype="multipart/form-data">
-                <!-- Kategorie -->
-                <div class="mb-3">
-                    <label for="category_id" class="form-label fw-bold">Kategorie</label>
-                    <p class="text-muted">(Vyberte téma, ke kterému se příspěvek vztahuje)</p>
-                    <select id="category_id" name="category_id" class="form-select" required>
-                        <option value="" disabled selected>-- Vyberte kategorii --</option>
-                        <option value="1">Power BI</option>
-                        <option value="2">Power Apps</option>
-                        <option value="3">Power Automate</option>
-                        <option value="4">Power Pages</option>
-                        <option value="5">Copilot Studio</option>
-                    </select>
-                </div>
+        <div class="container">
+            <?php if(!empty($posts)): ?>
+                <h3>Příspěvky</h3>
 
-                <!-- Název příspěvku -->
-                <div class="mb-3">
-                    <label for="title" class="form-label fw-bold">Název příspěvku</label>
-                    <input type="text" id="title" name="title" class="form-control" placeholder="Zadejte název příspěvku" required>
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <?php foreach($posts as $post): ?>
+                        <div class="col">
+                            <div class="card h-100 card-general">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?= htmlspecialchars($post['title']) ?></h5>
+                                    <p class="card-text">
+                                        <?= htmlspecialchars(mb_substr($post['content'], 0, 150)) ?>...
+                                    </p>
+                                    
+                                </div>
+                                <div class="card-footer d-flex justify-content-between align-items-center">
+                                    
+                                    <a href="../controllers/show_post_comments.php?id=<?= urlencode($post['id']) ?>" class="btn btn-general btn-sm">
+                                        Zobrazit více
+                                    </a>
+                                    <small class="text-muted">Autor: <?= htmlspecialchars($post['username']) ?></small>
+                        <?php if(isset($_SESSION['user_id']) && ($_SESSION['user_id'] == $post['user_id'] || $_SESSION['role']==='admin')): ?>
+                            <div class="d-flex gap-2">
+                                <a href="../controllers/post_delete.php?id=<?= urlencode($post['id']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Opravdu chcete smazat tento příspěvek?')">
+                                    <i class="bi bi-trash3-fill"></i>
+                                </a>
+                            </div>
+                        <?php endif; ?>
                 </div>
-                <!-- Obsah příspěvku -->
-                <div class="mb-3">
-                    <label for="content" class="form-label fw-bold">Obsah příspěvku</label>
-                    <textarea name="content" id="content" class="form-control" rows="10" placeholder="Sem napište svůj příspěvek..." required></textarea>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
-
-                <!-- Tlačítko -->
-                <div class="text-end">
-                    <button type="submit" class="btn btn-general">
-                        Uložit příspěvek
-                    </button>
-                </div>
-            </form>
+            <?php else: ?>
+                <div class="alert alert-danger">Žádný příspěvek</div>
+            <?php endif;?>       
         </div>
     </div>
 

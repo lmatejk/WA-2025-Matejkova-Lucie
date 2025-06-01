@@ -11,20 +11,19 @@ if (session_status() === PHP_SESSION_NONE) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
-
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism-coy.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" />
     
     <!-- custom style-->
-    <link rel="stylesheet" href="../../styles/styles.css">   
-
+    <link rel="stylesheet" href="../../styles/styles.css">
 </head>
-<body>
+<body class="bg-light">
+    
     <nav class="navbar navbar-expand-lg navbar-dark navbar-general mb-4 sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../other/home.php"><img src="../../assets/images/logo_wa.png" alt="logo" style="width: 50px;"></a>
+            <a class="navbar-brand" href="../views/other/home.php"><img src="../../assets/images/logo_wa.png" alt="logo" style="width: 50px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Přepnout navigaci">
                 <span class="navbar-toggler-icon"></span>
@@ -47,27 +46,24 @@ if (session_status() === PHP_SESSION_NONE) {
                         <a class="nav-link" href="../mainContent/copilotStudio.php">Copilot Studio</a>
                     </li>    
                     <li class="nav-item">
-                        <a class="nav-link" href="../../controllers/posts_list.php">Blog</a>
-                    </li>    
-   
+                        <a class="nav-link" href="#">Blog</a>
+                    </li>     
                 </ul>
-                <ul class="navbar-nav ms-auto">
-                     
-                </ul>
+
                 <ul class="navbar-nav ms-auto">
                     <?php if (isset($_SESSION['username'])): ?>
                         <li class="nav-item">
                             <span class="nav-link text-white"><i class="bi bi bi-person-circle "></i> <strong><?= htmlspecialchars($_SESSION['username']) ?></strong></span>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../controllers/logout.php">Odhlásit se</a>
+                            <a class="nav-link" href="../controllers/logout.php">Odhlásit se</a>
                         </li>
                     <?php else: ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../views/auth/login.php">Přihlášení</a>
+                            <a class="nav-link" href="../auth/login.php">Přihlášení</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../views/auth/register.php">Registrace</a>
+                            <a class="nav-link" href="../auth/register.php">Registrace</a>
                         </li>
                     <?php endif; ?>
                 </ul>
@@ -75,44 +71,31 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
     </nav>
 
-    <div class="container mb-5">
-        <h2 class="p-2">Vytvoření příspěvku</h2>
-        <div class="card p-4 card-general">
-            
-            <form action="../../controllers/post_create.php" method="post" enctype="multipart/form-data">
-                <!-- Kategorie -->
+<div class="container mt-5">
+        <h2>Upravit příspěvek</h2>
+
+        <?php if (isset($error)): ?>
+            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
+
+        <?php if ($post): ?>
+            <form method="POST" action="../../controllers/post_update.php">
                 <div class="mb-3">
-                    <label for="category_id" class="form-label fw-bold">Kategorie</label>
-                    <p class="text-muted">(Vyberte téma, ke kterému se příspěvek vztahuje)</p>
-                    <select id="category_id" name="category_id" class="form-select" required>
-                        <option value="" disabled selected>-- Vyberte kategorii --</option>
-                        <option value="1">Power BI</option>
-                        <option value="2">Power Apps</option>
-                        <option value="3">Power Automate</option>
-                        <option value="4">Power Pages</option>
-                        <option value="5">Copilot Studio</option>
-                    </select>
+                    <label for="title" class="form-label">Nadpis</label>
+                    <input type="text" class="form-control" id="title" name="title" value="<?= htmlspecialchars($post['title']) ?>" required>
                 </div>
 
-                <!-- Název příspěvku -->
                 <div class="mb-3">
-                    <label for="title" class="form-label fw-bold">Název příspěvku</label>
-                    <input type="text" id="title" name="title" class="form-control" placeholder="Zadejte název příspěvku" required>
-                </div>
-                <!-- Obsah příspěvku -->
-                <div class="mb-3">
-                    <label for="content" class="form-label fw-bold">Obsah příspěvku</label>
-                    <textarea name="content" id="content" class="form-control" rows="10" placeholder="Sem napište svůj příspěvek..." required></textarea>
+                    <label for="content" class="form-label">Obsah</label>
+                    <textarea class="form-control" id="content" name="content" rows="6" required><?= htmlspecialchars($post['content']) ?></textarea>
                 </div>
 
-                <!-- Tlačítko -->
-                <div class="text-end">
-                    <button type="submit" class="btn btn-general">
-                        Uložit příspěvek
-                    </button>
-                </div>
+                <button type="submit" class="btn btn-general">Uložit změny</button>
+                
             </form>
-        </div>
+        <?php else: ?>
+            <div class="alert alert-danger">Příspěvek nenalezen.</div>
+        <?php endif; ?>
     </div>
 
     <footer class="bg-dark text-white py-5 mt-5">

@@ -8,10 +8,17 @@ class Post {
     }
 
     public function getAllPosts() {
-        $sql = "SELECT * FROM blog_posts ORDER BY created_at DESC";
+
+
+        $sql = "SELECT blog_posts.*, users.username 
+            FROM blog_posts 
+            JOIN users ON blog_posts.user_id = users.id 
+            ORDER BY blog_posts.created_at DESC";
+
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
-        return $stmt->fetchALL(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     }
 
     public function getPostById($id) {

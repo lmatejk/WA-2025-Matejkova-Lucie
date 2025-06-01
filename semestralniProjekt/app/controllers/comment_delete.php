@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment_id'])) {
     if ($commentModel->deleteComment($id)) {
         $postId = $_POST['post_id'] ?? null;
         if ($postId) {
-            header("Location: ../views/blog/show_post.php?id=" . urlencode($postId));
+            header("Location: ../controllers/show_post_comments.php?id=" . urlencode($postId));
         } else {
             header("Location: ../views/blog/blog.php");
         }

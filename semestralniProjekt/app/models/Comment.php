@@ -8,7 +8,13 @@ class Comment {
     }
  
     public function getCommentById($postId) {
-        $query = "SELECT * FROM comments WHERE post_id = :post_id";
+        
+        $query = "SELECT comments.*, users.username 
+            FROM comments 
+            JOIN users ON comments.user_id = users.id 
+            WHERE comments.post_id = :post_id
+            ORDER BY comments.created_at ASC";
+
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':post_id', $postId);
         $stmt->execute();
